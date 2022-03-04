@@ -21,7 +21,7 @@ phases:
       - aws lambda add-permission --statement-id InvokeLambdaFunction --action lambda:InvokeFunction --principal events.amazonaws.com --function-name arn:aws:lambda:us-east-1:561880438739:function:testsso-deregister1 --source-arn "arn:aws:iam::561880438739:role/codebuild-Lambda_9_NEW_Project_recent-service-role"
       - echo "DONE!!"
       - echo "Create Event Rule..."
-      - aws events put-rule --name "ssmrule1" --event-pattern "{\"source\":[\"aws.ec2\"],\"detail-type\":[\"AWS API Call via CloudTrail\"],\"detail\":[\"CreateImage\"]}"  --role-arn "arn:aws:iam::561880438739:role/ssmrule1"
+      - aws events put-rule --name "ssmrule1" --event-pattern "{\"source\":[\"aws.ec2\"],\"detail-type\":[\"AWS API Call via CloudTrail\"],\"detail\":[\"CreateImage\"]}"  --role-arn "arn:aws:iam::561880438739:role/codebuild-Lambda_9_NEW_Project_recent-service-role"
       - echo "DONE!!"
       - echo "Create Targets..."
       - aws events put-targets --rule ssmrule1 --targets "testsso-deregister1","Arn"="arn:aws:lambda:us-east-1:561880438739:function:testsso-deregister1"                  
