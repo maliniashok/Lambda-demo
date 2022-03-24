@@ -15,14 +15,14 @@ phases:
   post_build:
     commands:
       - echo "Create lambda Function..."
-      - aws lambda create-function --function-name ssoderegistration --role arn:aws:iam::561880438739:role/service-role/testsso-dev-role-px3w33bx --handler python_function.lambda_handler --runtime python3.8 --zip-file fileb://deployment_package.zip
+      - aws lambda create-function --function-name ssoderegistration12 --role arn:aws:iam::561880438739:role/service-role/testsso-dev-role-px3w33bx --handler python_function.lambda_handler --runtime python3.8 --zip-file fileb://deployment_package.zip
       - echo "DONE!!"
       - echo "Add Lambda Permission..."
-      - aws lambda add-permission --statement-id InvokeLambdaFunction --action lambda:InvokeFunction --principal events.amazonaws.com --function-name arn:aws:lambda:us-east-1:561880438739:function:ssoderegistration --source-arn "arn:aws:events:us-east-1:561880438739:rule/malinitestrule"
+      - aws lambda add-permission --statement-id InvokeLambdaFunction --action lambda:InvokeFunction --principal events.amazonaws.com --function-name arn:aws:lambda:us-east-1:561880438739:function:ssoderegistration12 --source-arn "arn:aws:events:us-east-1:561880438739:rule/malinitestrule1"
       - echo "DONE!!"         
       - echo "Create Event Rule..."
-      - aws events put-rule --name "malinitestrule" --event-pattern "{\"source\":[\"aws.cloudtrail\"],\"detail-type\":[\"AWS API Call via CloudTrail\"],\"detail\":{\"eventSource\":[\"cloudtrail.amazonaws.com\"],\"eventName\":[\"ChangeSessionManagerPreferences\"]}}"
+      - aws events put-rule --name "malinitestrule1" --event-pattern "{\"source\":[\"aws.cloudtrail\"],\"detail-type\":[\"AWS API Call via CloudTrail\"],\"detail\":{\"eventSource\":[\"cloudtrail.amazonaws.com\"],\"eventName\":[\"ChangeSessionManagerPreferences\"]}}"
       - echo "DONE!!"
       - echo "Create Targets..."
-      - aws events put-targets --rule malinitestrule --targets "Id"="1","Arn"="arn:aws:lambda:us-east-1:561880438739:function:ssoderegistration" "Id"="2","Arn"="arn:aws:sns:us-east-1:561880438739:ssotestsns"
+      - aws events put-targets --rule malinitestrule1 --targets "Id"="1","Arn"="arn:aws:lambda:us-east-1:561880438739:function:ssoderegistration12" "Id"="2","Arn"="arn:aws:sns:us-east-1:561880438739:ssotestsns"
       - echo "DONE!!"
